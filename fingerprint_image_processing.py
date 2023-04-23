@@ -59,13 +59,13 @@ DATA_DIR = "<path_to_fingerprint_base_data>"   # CASIA-FingerprintV5 database. e
 TARGET_DIR = "<path_to_selected_fingerprint_base_directory>"  # selected fingerprint base directory. ex.: 'selected samples'
 SUB_DIR = ['L', 'R']  # Left and Right directory
 MAX_DIR = 500  # Number max + 1 of directories fingerprint (usually 499)
-threshold = 0.07
+correlationCoefficient = 0.07
 NUMBER_MATCH = 10
 target_dir_path = os.path.join(DESTINE_DIR, TARGET_DIR)
 data_dir_path = os.path.join(BASE_DIR, DATA_DIR)
 os.chdir(target_dir_path)
 ##number_dir = 323
-while (threshold > 0):
+while (correlationCoefficient > 0):
     number_dir = 0  # Current directory number
     while (number_dir < MAX_DIR):
         person_number = str(number_dir).zfill(3)
@@ -84,23 +84,23 @@ while (threshold > 0):
                         fingerprint_file2 = person_number + "_" + side_dir + set_finger + "_" + str(set2_5) + ".bmp"
                         fingerprint2 = get_central_region(threshold_min(open_image_to_matrix(os.path.join(side_finger_dir, fingerprint_file2))))
                         correlation = cross_correlation(fingerprint1, fingerprint2)
-                        if correlation.max() > threshold:
+                        if correlation.max() > correlationCoefficient:
                             count_match = count_match + 1
                         else:
                             count_match = -1
                             break
                 if count_match == NUMBER_MATCH:
-                    destination_dir = os.path.join(DESTINE_DIR, TARGET_DIR, str(int(threshold * 1000)).zfill(3))
+                    destination_dir = os.path.join(DESTINE_DIR, TARGET_DIR, str(int(correlationCoefficient * 1000)).zfill(3))
                     if not os.path.exists(destination_dir):
                         os.makedirs(destination_dir)
                     for set1_5 in range(5):
                         fingerprint_file1 = person_number + "_" + side_dir + set_finger + "_" + str(set1_5) + ".bmp"
-                        destination_dir = os.path.join(DESTINE_DIR, TARGET_DIR, str(int(threshold * 1000)).zfill(3), fingerprint_file1)
+                        destination_dir = os.path.join(DESTINE_DIR, TARGET_DIR, str(int(correlationCoefficient * 1000)).zfill(3), fingerprint_file1)
                         fingerprint1 = get_central_region(threshold_min(open_image_to_matrix(os.path.join(side_finger_dir, fingerprint_file1))))
                         imagem = Image.fromarray(fingerprint1, mode="L")
                         imagem.save(destination_dir)
                         print(destination_dir)
 
-        print("threshold " + str(threshold) + " - directory " + str(number_dir))
+        print("correlation coefficient " + str(correlationCoefficient) + " - directory " + str(number_dir))
         number_dir = number_dir + 1
-    threshold = threshold - 0.01
+    correlationCoefficient = correlationCoefficient - 0.01
