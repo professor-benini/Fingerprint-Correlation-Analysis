@@ -1,6 +1,8 @@
 # Fingerprint-Correlation-Analysis
 Fingerprint-Correlation-Analysis: Python scripts for fingerprint analysis using CASIA Fingerprint Image Database V5.0. Includes preprocessing, resizing, thresholding, and cross-correlation evaluation with TNR, IRR, GAR, FNR, and FPR metrics.
-This repository contains the code for fingerprint image preprocessing, which is an essential step in fingerprint correlation analysis using the CASIA-FingerprintV5 database.
+This repository contains the code for fingerprint image preprocessing, which is an essential step in fingerprint correlation analysis using the CASIA-FingerprintV5 database. To access the CASIA-FingerprintV5 database, you need to visit the Institute of Automation, Chinese Academy of Sciences (CASIA) website (http://english.ia.cas.cn/). The database is available for research purposes, and you must request access by contacting the organization. Once you have obtained the necessary permissions, you can download the dataset and use it with this script.
+
+Please note that the database is subject to specific terms and conditions of use, and it is essential to comply with these requirements when using the dataset for research or other purposes.
 
 ## Description
 
